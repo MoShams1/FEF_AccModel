@@ -4,7 +4,7 @@ clc
 clear
 close all
 
-load(fullfile('..','motor_data'))
+load motor_data
 load x102_sig_visuals
 
 figure('units','normalized','outerposition',[.01 .1 .6 .5])

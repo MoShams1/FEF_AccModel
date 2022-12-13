@@ -8,7 +8,6 @@ load x101_avg_single_stimVSnostim_win15
 load x101_meanFR_each_period.mat
 load x102_sig_visuals
 
-
 %% plot stimulation in FIXATION period
 
 base = extract_base(mFR_in,mFR_out);

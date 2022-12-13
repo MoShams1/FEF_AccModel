@@ -5,7 +5,7 @@
 
 clc
 clear
-% close all
+close all
 
 load x101_perf_LDA_win10_timecourse_25x_IN perf
 load 'x102_sig_visuals.mat'

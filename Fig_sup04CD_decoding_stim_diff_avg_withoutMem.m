@@ -5,7 +5,7 @@ clear
 close all
 
 load x101_perf_LDA_win10_timecourse_25x_in.mat perf
-load x102_sig_visuals.mat
+load x102_sig_visuals
 
 win = 20:30; % to cover -40 ms from sac with a 10 ms window
 

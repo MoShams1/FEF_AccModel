@@ -4,7 +4,7 @@ clc
 clear
 close all
 
-load(fullfile('..','motor_data.mat'))
+load motor_data.mat
 
 
 c = lines(7);

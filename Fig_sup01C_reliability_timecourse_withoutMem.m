@@ -2,7 +2,7 @@ clc
 clear
 close all
 
-load x102_sig_visuals.mat
+load x102_sig_visuals
 load x101_perf_LDA_win20_timecourse_100x_in.mat perf
 
 perf_2D_motor_in = squeeze(mean(perf(~sig_vis&~sig_mem,1,:,:),3));
