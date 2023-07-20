@@ -6,7 +6,7 @@
 function h = plot3line(x,A,color,crop,std)
 
 switch nargin
-    case 2        
+    case 2
         color = lines(1);
         crop = 0;
     case 3
@@ -23,7 +23,7 @@ err = SE(A);
 
 hold on
 h = plot(x,m,'color',color,'linewidth',2);
-plot(x,m-err,'color',color,'linewidth',.5)
-plot(x,m+err,'color',color,'linewidth',.5)
+plot(x,m-err,'color',color,'linewidth',.25)
+plot(x,m+err,'color',color,'linewidth',.25)
 
 % xlim([0 length(m)+1])
