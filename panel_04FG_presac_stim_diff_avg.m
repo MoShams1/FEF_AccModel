@@ -1,12 +1,8 @@
-
-
-clc
-clear
-close all
+function panel_04FG_presac_stim_diff_avg()
 
 load x101_avg_single_stimVSnostim_win15
 load x101_meanFR_each_period.mat
-load x102_sig_visuals.mat
+load x102_sig_visuals.mat sig_vis
 
 x = (-69:0)+10;
 win1 = -50;
@@ -37,14 +33,12 @@ pre_diff_m = mean(stim_m,2)-mean(nostim_m,2);
 pre_diff_vm = mean(stim_vm,2)-mean(nostim_vm,2);
 
 
-plot_diff(fix_diff_m,vis_diff_m,mem_diff_m,pre_diff_m)
-plot_diff(fix_diff_vm,vis_diff_vm,mem_diff_vm,pre_diff_vm)
+plot_diff(fix_diff_m,vis_diff_m,mem_diff_m,pre_diff_m, 5+5)
+ylim([-3 1])
+plot_diff(fix_diff_vm,vis_diff_vm,mem_diff_vm,pre_diff_vm, 10+5)
+ylim([-6 1])
 
-%% stat
-[signrank(fix_diff_m),signrank(vis_diff_m),signrank(mem_diff_m),signrank(pre_diff_m)]
-[signrank(fix_diff_vm),signrank(vis_diff_vm),signrank(mem_diff_vm),signrank(pre_diff_vm)]
-
-%% functions
+end
 
 function base = extract_base(mFR_in,mFR_out)
 base = nan(size(mFR_in,1),1);
@@ -61,8 +55,7 @@ ind = sig_vis;
 vm = M(ind,:) - base(ind,:);
 end
 
-function plot_diff(fix_diff, vis_diff, mem_diff, pre_diff)
-fig_size = [.2 .2 .12 .25];
+function plot_diff(fix_diff, vis_diff, mem_diff, pre_diff, isubplot)
 x = [1 2 3 4];
 y = [mean(fix_diff), mean(vis_diff), mean(mem_diff), mean(pre_diff)];
 err =...
@@ -71,12 +64,45 @@ err =...
     std(mem_diff)/sqrt(numel(mem_diff)),...
     std(pre_diff)/sqrt(numel(pre_diff))];
 
-figure('units','normalized','outerposition',fig_size)
+subplot(3,5,isubplot)
 errorbar(x,y,err, 'o', 'markersize', 7, 'linewidth',1,'color','k',...
     'CapSize',0, 'MarkerFaceColor','k', 'MarkerEdgeColor','none')
 line([0 5], [0 0], 'color', 'k')
-ylabel 'Discharge difference (spks/s)'
-set(gca,'xtick',1:4,'xticklabel',["Fix", "Vis", "Del", "Sac"])
+ylabel({'Baseline subtracted','discharge rate difference (spks/s)'})
+set(gca,'xcolor','none')
 xlim([.5 4.5])
+pbaspect([.6 1 1])
 cleanplot
+
+if isubplot == 10
+    ytext = -3.5;
+else
+    ytext = -6.5;
+end
+
+text(1,ytext,'Fix','color','k','rotation',45,'horizontalalignment','right')
+text(2,ytext,'Vis','color','k','rotation',45,'horizontalalignment','right')
+text(3,ytext,'Del','color','k','rotation',45,'horizontalalignment','right')
+text(4,ytext,'Pre','color','k','rotation',45,'horizontalalignment','right')
+
+%% stat
+disp(['pval dis. diff. ', num2str([signrank(fix_diff),signrank(vis_diff),signrank(mem_diff),signrank(pre_diff)])])
+
+text(1,ytext+.5,calaster(signrank(fix_diff)),'horizontalalignment','center')
+text(2,ytext+.5,calaster(signrank(vis_diff)),'horizontalalignment','center')
+text(3,ytext+.5,calaster(signrank(mem_diff)),'horizontalalignment','center')
+text(4,ytext+.5,calaster(signrank(pre_diff)),'horizontalalignment','center')
+
+end
+
+function aster = calaster(p)
+if p<0.001
+    aster = '***';
+elseif p<0.01
+    aster = '**';
+elseif p<0.05
+    aster = '*';
+else
+    aster = '';
+end
 end

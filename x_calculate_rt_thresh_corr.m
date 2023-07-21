@@ -1,6 +1,4 @@
 
-
-
 clear
 close all
 clc
@@ -20,7 +18,7 @@ for ineuron = 1:numel(data)
 end
 
 save(['rt_thresh_timecourse_win',num2str(win), ...
-    '_rtbin',num2str(n_rtbins),'_spearman.mat'], ...
+    '_rtbin',num2str(n_rtbins),'.mat'], ...
     'r', 'rp')
 
 
@@ -78,7 +76,7 @@ end
 
 for it = 1:size(fef_b,2)
     
-    [r(it),rp(it)] = corr(rt_b,fef_b(:,it),'type','spearman');
+    [r(it),rp(it)] = corr(rt_b,fef_b(:,it),'type','kendall');
 
 end
 

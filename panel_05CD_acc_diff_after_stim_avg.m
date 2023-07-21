@@ -33,6 +33,12 @@ cliffs_delta
 es
 pvals
 
+ytext = -2.5;
+text(1,ytext,calaster(pvals(1)),'horizontalalignment','center')
+text(2,ytext,calaster(pvals(2)),'horizontalalignment','center')
+text(3,ytext,calaster(pvals(3)),'horizontalalignment','center')
+text(4,ytext,calaster(pvals(4)),'horizontalalignment','center')
+
 [pvals, cliffs_delta, es] = plot_p(cell_vis,mat_vis,4);
 title('Visuomotor')
 [sig, ~] = BH_correct(pvals,alpha,2)
@@ -40,7 +46,14 @@ cliffs_delta
 es
 pvals
 
+ytext = -2.1;
+text(1,ytext,calaster(pvals(1)),'horizontalalignment','center')
+text(2,ytext,calaster(pvals(2)),'horizontalalignment','center')
+text(3,ytext,calaster(pvals(3)),'horizontalalignment','center')
+text(4,ytext,calaster(pvals(4)),'horizontalalignment','center')
+
 disp(['Note: the alpha level is set to ',num2str(alpha)])
+
 end
 
 
@@ -63,9 +76,8 @@ end
 function [pvals, cliffs_delta, es] = plot_p(pcell,mat_nostim,isubplot)
 subplot(2,2,isubplot)
 barplotkon(pcell)
-tags = {'fix','vis','mem','pre'};
-set(gca,'xtick',1:4,'xticklabel',tags)
-ylabel('Acc diff after stim (pp)')
+set(gca,'xcolor','none')
+ylabel({'Decoding accuracy change','after stimulation (pp)'})
 cleanplot
 pvals = [signrank(pcell{1}),signrank(pcell{2}),signrank(pcell{3}),signrank(pcell{4})];
 es1 = meanEffectSize(pcell{1},0,effect="cliff");
@@ -75,6 +87,13 @@ es4 = meanEffectSize(pcell{4},0,effect="cliff");
 cliffs_delta = abs([es1.Effect, es2.Effect, es3.Effect, es4.Effect]);
 es = abs([mean(pcell{1}),mean(pcell{2}),mean(pcell{3}),mean(pcell{4})])/...
     (mean(mat_nostim)-50);
+
+ytext = -2.7;
+text(1,ytext,'Fix','color','k','rotation',45,'horizontalalignment','right')
+text(2,ytext,'Vis','color','k','rotation',45,'horizontalalignment','right')
+text(3,ytext,'Del','color','k','rotation',45,'horizontalalignment','right')
+text(4,ytext,'Pre','color','k','rotation',45,'horizontalalignment','right')
+
 end
 
 
@@ -102,8 +121,18 @@ end
 xlim([0 ncat+1])
 set(gca,'xtick',1:ncat)
 line([0 5],[0 0],'color','k')
-ylim([-3.6 3])
-pbaspect([.6 1 1])
+ylim([-2.5 1.2])
+pbaspect([.8 1 1])
 end
 
-
+function aster = calaster(p)
+if p<0.001
+    aster = '***';
+elseif p<0.01
+    aster = '**';
+elseif p<0.05
+    aster = '*';
+else
+    aster = '';
+end
+end

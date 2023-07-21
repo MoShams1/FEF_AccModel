@@ -46,20 +46,25 @@ c = [c1;c2;c3;c4];
 
 
 subplot(2,2,isubplot)
-for icnd = 1:4    
+fill([-50 -50 -25 -25],[-3 4 4 -3],'k','facealpha',.1,'edgecolor','none')
+for icnd = 1:4
     v = smoothraster(diff_mat(:,:,icnd),sw);
     p(icnd) = plot3line(x,v,c(icnd,:));
 end
 line([-60 10],[0 0],'color','k')
-line([0 0],[-4 4],'color','k')
-line([win1 win1],[-4 4],'color','k')
-line([win2 win2],[-4 4],'color','k')
-legend(p,{'fix','vis','mem','sac'})
-ylabel('Acc diff after stim (pp)')
-xlabel('Time from sac onset (ms)')
+line([0 0],[-3 4],'color','k')
+set(gca,'ytick',-3:1.5:3)
+ylabel({'Decoding accuracy change','after stimulation (pp)'})
+xlabel('Time from saccade onset (ms)')
 title(neuron_type)
 xlim([-62 10])
 ylim([-3.6 3])
 cleanplot
-
+pbaspect([1 .6 1])
+if isubplot == 1
+    text(3,3.2,'Fix','color',c(1,:))
+    text(3,2.5,'Vis','color',c(2,:))
+    text(3,1.8,'Del','color',c(3,:))
+    text(3,1.1,'Pre','color',c(4,:))
+end
 end

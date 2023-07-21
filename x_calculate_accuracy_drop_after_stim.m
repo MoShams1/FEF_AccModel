@@ -5,7 +5,6 @@ clear
 close all
 
 load LDA_acc_timecourse_win20_rep200x perf
-load x102_sig_visuals
 
 x = (-69:0)+10;
 win1 = -50;
@@ -17,7 +16,7 @@ perf = squeeze(mean(perf(:,:,:,:),3));
 
 diff_mat = squeeze(mean(diff_mat(:,win,:),2));
 
-save acc_diff_mat_after_stim.mat diff_mat
+save acc_change_after_stim.mat diff_mat
 
  
 %% FUNCTIONS

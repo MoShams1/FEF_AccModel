@@ -22,8 +22,8 @@ m = nanmean(A,1);
 err = SE(A);
 
 hold on
-h = plot(m,'color',color,'linewidth',2);
-plot(m-err,'color',color,'linewidth',.5)
-plot(m+err,'color',color,'linewidth',.5)
+h = plot(m,'color',color,'linewidth',1);
+plot(m-err,'color',color,'linewidth',.25)
+plot(m+err,'color',color,'linewidth',.25)
 
 % xlim([0 length(m)+1])

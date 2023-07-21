@@ -1,8 +1,4 @@
-% clc
-% clear
-% close all
-
-function panel_6E_vmi_vs_acc()
+function panel_06D_vmi_vs_acc()
 
 load LDA_acc_timecourse_win20_rep200x.mat perf
 load vmi.mat vmi
@@ -23,12 +19,15 @@ line([-1 1],[50 50],'color','k')
 set(gca,'xtick',-1:.5:1,'ytick',46:4:66)
 cleanplot
 xlabel 'Visuomotor index'
-ylabel 'Classification accuracy (%)'
+ylabel 'Decoding accuracy (%)'
 lsline
 xlim([-1.1 1.1])
 
-[rho, p] = corr(vmi,acc,'type','spearman');
+[rho, p] = corr(vmi,acc,'type','kendal');
 disp({'vmiVSacc' rho p})
+
+text(-1,65,['\tau = ',num2str(round(rho,2))])
+text(-1,63.5,'p < 0.001 ')
 
 %% 
 hold on
